@@ -1,0 +1,17 @@
+RewriteEngine On
+
+# Route common scanner/bait paths to the trap handler.
+RewriteRule ^\.env$ traps/trap.php [L]
+RewriteRule ^\.git/config$ traps/trap.php [L]
+RewriteRule ^wp-login\.php$ traps/trap.php [L]
+RewriteRule ^wp-admin(/.*)?$ traps/trap.php [L]
+RewriteRule ^phpmyadmin(/.*)?$ traps/trap.php [L]
+RewriteRule ^pma(/.*)?$ traps/trap.php [L]
+RewriteRule ^config\.php\.bak$ traps/trap.php [L]
+RewriteRule ^backup(/.*)?$ traps/trap.php [L]
+RewriteRule ^\.ssh(/.*)?$ traps/trap.php [L]
+
+# Never allow direct web access to the SQLite database or raw config.
+<FilesMatch "\.(sqlite|sqlite-wal|sqlite-shm)$">
+    Require all denied
+</FilesMatch>
